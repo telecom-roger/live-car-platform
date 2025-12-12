@@ -14,8 +14,12 @@
 import { exec } from 'child_process';
 import { promisify } from 'util';
 import { promises as fs } from 'fs';
+import { basename } from 'path';
 
 const execAsync = promisify(exec);
+
+// Constante para o nome do arquivo temporário de saída
+const TEMP_OUTPUT_PREFIX = 'whisper_output_';
 
 export class WhisperLocalService {
   private whisperPath: string;
@@ -40,12 +44,20 @@ export class WhisperLocalService {
       // Verificar se arquivo existe
       await fs.access(audioFilePath);
 
-      // Executar whisper.cpp
-      const command = `${this.whisperPath}/main -m ${this.modelPath} -f ${audioFilePath} --output-txt`;
-      
-      const { stdout, stderr } = await execAsync(command, {
-        maxBuffer: 10 * 1024 * 1024 // 10MB buffer
-      });
+      // Validar que o caminho não contém caracteres perigosos
+      const safeBasename = basename(audioFilePath);
+      if (safeBasename.includes('..') || safeBasename.includes(';') || safeBasename.includes('&')) {
+        throw new Error('Nome de arquivo inválido');
+      }
+
+      // Executar whisper.cpp com parâmetros escapados
+      const { stdout, stderr } = await execAsync(
+        `"${this.whisperPath}/main" -m "${this.modelPath}" -f "${audioFilePath}" --output-txt`,
+        {
+          maxBuffer: 10 * 1024 * 1024, // 10MB buffer
+          timeout: 300000 // 5 minutos timeout
+        }
+      );
 
       if (stderr) {
         console.warn('Whisper stderr:', stderr);
@@ -65,11 +77,19 @@ export class WhisperLocalService {
     try {
       await fs.access(audioFilePath);
 
-      const command = `${this.whisperPath}/main -m ${this.modelPath} -f ${audioFilePath} --translate --output-txt`;
-      
-      const { stdout } = await execAsync(command, {
-        maxBuffer: 10 * 1024 * 1024
-      });
+      // Validar que o caminho não contém caracteres perigosos
+      const safeBasename = basename(audioFilePath);
+      if (safeBasename.includes('..') || safeBasename.includes(';') || safeBasename.includes('&')) {
+        throw new Error('Nome de arquivo inválido');
+      }
+
+      const { stdout } = await execAsync(
+        `"${this.whisperPath}/main" -m "${this.modelPath}" -f "${audioFilePath}" --translate --output-txt`,
+        {
+          maxBuffer: 10 * 1024 * 1024,
+          timeout: 300000
+        }
+      );
 
       return stdout.trim();
     } catch (error: any) {

@@ -26,6 +26,15 @@ if command_exists ollama; then
     ollama --version
 else
     echo "📥 Baixando e instalando Ollama..."
+    echo "⚠️  AVISO: Você está prestes a executar um script de instalação da internet."
+    echo "   Por segurança, você pode revisar o script em: https://ollama.com/install.sh"
+    read -p "Deseja continuar? (s/N): " -n 1 -r
+    echo ""
+    if ! [[ $REPLY =~ ^[Ss]$ ]]; then
+        echo "❌ Instalação cancelada. Instale manualmente de: https://ollama.com/download"
+        exit 1
+    fi
+    
     if [[ "$OS" == "Linux" ]] || [[ "$OS" == "Darwin" ]]; then
         curl -fsSL https://ollama.com/install.sh | sh
         echo "✅ Ollama instalado com sucesso!"

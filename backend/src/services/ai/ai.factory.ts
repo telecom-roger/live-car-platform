@@ -13,6 +13,9 @@ import { AIService, AIServiceConfig } from './ai.interface';
 import { OllamaAIService } from './ollama.service';
 import { OpenAIService } from './openai.service';
 
+// Constante para API key quando não é necessária
+const NO_API_KEY_NEEDED = 'not-needed';
+
 export class AIFactory {
   /**
    * Cria uma instância do serviço de IA baseado na configuração
@@ -38,7 +41,7 @@ export class AIFactory {
       case 'localai':
         // LocalAI usa a mesma interface do OpenAI
         return new OpenAIService(
-          'not-needed', // LocalAI não precisa de API key
+          NO_API_KEY_NEEDED, // LocalAI não precisa de API key
           config?.visionModel,
           config?.textModel
         );

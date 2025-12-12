@@ -35,11 +35,19 @@ export class OllamaAIService implements AIService {
    */
   async analyzeImage(imageUrl: string, prompt: string): Promise<string> {
     try {
+      // Validação básica de URL para prevenir SSRF
+      const url = new URL(imageUrl);
+      const allowedProtocols = ['http:', 'https:'];
+      if (!allowedProtocols.includes(url.protocol)) {
+        throw new Error('Protocolo de URL não permitido. Use http ou https.');
+      }
+
       // Baixa a imagem e converte para base64 (Ollama requer base64)
       const imageResponse = await axios.get(imageUrl, { 
-        responseType: 'arraybuffer' 
+        responseType: 'arraybuffer',
+        timeout: 10000 // 10 segundos timeout
       });
-      const base64Image = Buffer.from(imageResponse.data, 'binary').toString('base64');
+      const base64Image = Buffer.from(imageResponse.data).toString('base64');
 
       // Faz a requisição para Ollama com imagem
       const response = await axios.post(`${this.baseUrl}/api/generate`, {

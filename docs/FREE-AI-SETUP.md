@@ -16,6 +16,8 @@ Ollama permite executar modelos de IA localmente sem custos.
 
 ```bash
 # Linux/Mac
+# NOTA DE SEGURANÇA: Antes de executar, você pode revisar o script em:
+# https://ollama.com/install.sh
 curl -fsSL https://ollama.com/install.sh | sh
 
 # Windows
