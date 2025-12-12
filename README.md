@@ -2,6 +2,8 @@
 
 > Plataforma de venda de carros com transmissões ao vivo, chat em tempo real e análise por IA.
 
+> 🆓 **NOVO:** [Guia para usar IA 100% gratuita e ilimitada](docs/FREE-AI-SETUP.md) - Sem custos por agente!
+
 ![Status](https://img.shields.io/badge/status-MVP-yellow)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 
@@ -16,6 +18,20 @@
 - ✅ Dashboard para vendedores
 - ✅ Busca e filtros avançados
 
+## 💰 Economia com IA Gratuita
+
+Usando **Ollama** em vez de OpenAI:
+
+| Uso Mensal | OpenAI | Ollama | **Economia** |
+|------------|--------|--------|--------------|
+| 1.000 análises | $20 | **$0** | **$20/mês** |
+| 10.000 análises | $200 | **$0** | **$200/mês** |
+| 100.000 análises | $2.000 | **$0** | **$2.000/mês** |
+
+**Economia no primeiro ano**: até **$24.000!** 🎉
+
+> Ver [comparação completa de provedores](docs/AI-PROVIDERS-COMPARISON.md)
+
 ## 🛠️ Stack
 
 | Camada | Tecnologia |
@@ -24,10 +40,44 @@
 | **Frontend** | React, TypeScript, TailwindCSS, Vite |
 | **Streaming** | Mux (RTMP/HLS) |
 | **Real-time** | Socket.io |
-| **IA** | OpenAI (GPT-4 Vision + Whisper) |
+| **IA** | OpenAI (GPT-4 Vision + Whisper) **OU** Ollama (Gratuito) 🆓 |
 | **Auth** | JWT + bcrypt |
 
+> 💡 **Novo:** Suporte para [Ollama](docs/FREE-AI-SETUP.md) - use IA localmente sem custos!
+
 ## 🚀 Quick Start
+
+### Opção 1: Com IA Gratuita (Ollama) 🆓 ⭐ RECOMENDADO
+
+```bash
+# 1. Clone o repositório
+git clone https://github.com/seu-usuario/live-car-platform.git
+cd live-car-platform
+
+# 2. Execute o setup automático de IA gratuita
+chmod +x setup-free-ai.sh
+./setup-free-ai.sh
+
+# 3. Backend
+cd backend
+npm install
+cp .env.example .env
+# Editar .env (já configurado para Ollama)
+npm run dev
+
+# 4. Banco de dados (em outra aba)
+createdb livecar
+cd backend
+for f in migrations/*.sql; do psql -d livecar -f "$f"; done
+
+# 5. Frontend (em outra aba)
+cd frontend
+npm install
+cp .env.example .env
+npm run dev
+```
+
+### Opção 2: Setup Manual (Tradicional)
 
 ```bash
 # 1. Clone o repositório
@@ -55,8 +105,14 @@ npm run dev
 
 Acesse: http://localhost:5173
 
+> 💡 **Quer usar IA sem custos?** Execute `./setup-free-ai.sh` ou veja o [Guia Completo](docs/FREE-AI-SETUP.md)
+
 ## 📚 Documentação
 
+- [🆓 **Guia: Usar IA sem Custo e Ilimitado**](docs/FREE-AI-SETUP.md) ⭐ **NOVO**
+- [❓ **FAQ - IA Gratuita**](docs/FAQ-AI-GRATUITA.md) 🆕
+- [📊 **Comparação de Provedores de IA**](docs/AI-PROVIDERS-COMPARISON.md) 🆕
+- [💡 **Exemplos de Uso de IA**](docs/AI-USAGE-EXAMPLES.md) 🆕
 - [📦 Instalação Completa](docs/INSTALLATION.md)
 - [🏗️ Arquitetura](docs/ARCHITECTURE.md)
 - [📡 API Reference](docs/API.md)
@@ -84,13 +140,30 @@ Acesse: http://localhost:5173
 
 ### Backend
 
+#### Opção 1: Com OpenAI (Pago)
 ```env
 DATABASE_URL=postgresql://user:pass@localhost:5432/livecar
 JWT_SECRET=your-secret
 MUX_TOKEN_ID=mux-token-id
 MUX_TOKEN_SECRET=mux-secret
+AI_PROVIDER=openai
 OPENAI_API_KEY=sk-...
 ```
+
+#### Opção 2: Com Ollama (Gratuito e Ilimitado) 🆓 ⭐
+```env
+DATABASE_URL=postgresql://user:pass@localhost:5432/livecar
+JWT_SECRET=your-secret
+MUX_TOKEN_ID=mux-token-id
+MUX_TOKEN_SECRET=mux-secret
+AI_PROVIDER=ollama
+OLLAMA_URL=http://localhost:11434
+OLLAMA_VISION_MODEL=llava:13b
+OLLAMA_TEXT_MODEL=mistral:7b
+TRANSCRIPTION_PROVIDER=whisper-local
+```
+
+> 💡 **Quer usar IA sem custos?** Veja o [**Guia Completo de IA Gratuita**](docs/FREE-AI-SETUP.md)
 
 ### Frontend
 
