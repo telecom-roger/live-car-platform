@@ -18,9 +18,6 @@ import { basename } from 'path';
 
 const execAsync = promisify(exec);
 
-// Constante para o nome do arquivo temporário de saída
-const TEMP_OUTPUT_PREFIX = 'whisper_output_';
-
 export class WhisperLocalService {
   private whisperPath: string;
   private modelPath: string;
@@ -103,7 +100,9 @@ export class WhisperLocalService {
    */
   async healthCheck(): Promise<boolean> {
     try {
-      await execAsync(`${this.whisperPath}/main --help`);
+      await execAsync(`"${this.whisperPath}/main" --help`, {
+        timeout: 5000
+      });
       return true;
     } catch (error) {
       return false;
