@@ -18,6 +18,20 @@
 - ✅ Dashboard para vendedores
 - ✅ Busca e filtros avançados
 
+## 💰 Economia com IA Gratuita
+
+Usando **Ollama** em vez de OpenAI:
+
+| Uso Mensal | OpenAI | Ollama | **Economia** |
+|------------|--------|--------|--------------|
+| 1.000 análises | $20 | **$0** | **$20/mês** |
+| 10.000 análises | $200 | **$0** | **$200/mês** |
+| 100.000 análises | $2.000 | **$0** | **$2.000/mês** |
+
+**Economia no primeiro ano**: até **$24.000!** 🎉
+
+> Ver [comparação completa de provedores](docs/AI-PROVIDERS-COMPARISON.md)
+
 ## 🛠️ Stack
 
 | Camada | Tecnologia |
@@ -32,6 +46,38 @@
 > 💡 **Novo:** Suporte para [Ollama](docs/FREE-AI-SETUP.md) - use IA localmente sem custos!
 
 ## 🚀 Quick Start
+
+### Opção 1: Com IA Gratuita (Ollama) 🆓 ⭐ RECOMENDADO
+
+```bash
+# 1. Clone o repositório
+git clone https://github.com/seu-usuario/live-car-platform.git
+cd live-car-platform
+
+# 2. Execute o setup automático de IA gratuita
+chmod +x setup-free-ai.sh
+./setup-free-ai.sh
+
+# 3. Backend
+cd backend
+npm install
+cp .env.example .env
+# Editar .env (já configurado para Ollama)
+npm run dev
+
+# 4. Banco de dados (em outra aba)
+createdb livecar
+cd backend
+for f in migrations/*.sql; do psql -d livecar -f "$f"; done
+
+# 5. Frontend (em outra aba)
+cd frontend
+npm install
+cp .env.example .env
+npm run dev
+```
+
+### Opção 2: Setup Manual (Tradicional)
 
 ```bash
 # 1. Clone o repositório
@@ -59,9 +105,13 @@ npm run dev
 
 Acesse: http://localhost:5173
 
+> 💡 **Quer usar IA sem custos?** Execute `./setup-free-ai.sh` ou veja o [Guia Completo](docs/FREE-AI-SETUP.md)
+
 ## 📚 Documentação
 
 - [🆓 **Guia: Usar IA sem Custo e Ilimitado**](docs/FREE-AI-SETUP.md) ⭐ **NOVO**
+- [📊 **Comparação de Provedores de IA**](docs/AI-PROVIDERS-COMPARISON.md) 🆕
+- [💡 **Exemplos de Uso de IA**](docs/AI-USAGE-EXAMPLES.md) 🆕
 - [📦 Instalação Completa](docs/INSTALLATION.md)
 - [🏗️ Arquitetura](docs/ARCHITECTURE.md)
 - [📡 API Reference](docs/API.md)
