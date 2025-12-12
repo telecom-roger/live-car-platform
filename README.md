@@ -2,6 +2,8 @@
 
 > Plataforma de venda de carros com transmissões ao vivo, chat em tempo real e análise por IA.
 
+> 🆓 **NOVO:** [Guia para usar IA 100% gratuita e ilimitada](docs/FREE-AI-SETUP.md) - Sem custos por agente!
+
 ![Status](https://img.shields.io/badge/status-MVP-yellow)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 
@@ -24,8 +26,10 @@
 | **Frontend** | React, TypeScript, TailwindCSS, Vite |
 | **Streaming** | Mux (RTMP/HLS) |
 | **Real-time** | Socket.io |
-| **IA** | OpenAI (GPT-4 Vision + Whisper) |
+| **IA** | OpenAI (GPT-4 Vision + Whisper) **OU** Ollama (Gratuito) 🆓 |
 | **Auth** | JWT + bcrypt |
+
+> 💡 **Novo:** Suporte para [Ollama](docs/FREE-AI-SETUP.md) - use IA localmente sem custos!
 
 ## 🚀 Quick Start
 
@@ -57,6 +61,7 @@ Acesse: http://localhost:5173
 
 ## 📚 Documentação
 
+- [🆓 **Guia: Usar IA sem Custo e Ilimitado**](docs/FREE-AI-SETUP.md) ⭐ **NOVO**
 - [📦 Instalação Completa](docs/INSTALLATION.md)
 - [🏗️ Arquitetura](docs/ARCHITECTURE.md)
 - [📡 API Reference](docs/API.md)
@@ -84,13 +89,30 @@ Acesse: http://localhost:5173
 
 ### Backend
 
+#### Opção 1: Com OpenAI (Pago)
 ```env
 DATABASE_URL=postgresql://user:pass@localhost:5432/livecar
 JWT_SECRET=your-secret
 MUX_TOKEN_ID=mux-token-id
 MUX_TOKEN_SECRET=mux-secret
+AI_PROVIDER=openai
 OPENAI_API_KEY=sk-...
 ```
+
+#### Opção 2: Com Ollama (Gratuito e Ilimitado) 🆓 ⭐
+```env
+DATABASE_URL=postgresql://user:pass@localhost:5432/livecar
+JWT_SECRET=your-secret
+MUX_TOKEN_ID=mux-token-id
+MUX_TOKEN_SECRET=mux-secret
+AI_PROVIDER=ollama
+OLLAMA_URL=http://localhost:11434
+OLLAMA_VISION_MODEL=llava:13b
+OLLAMA_TEXT_MODEL=mistral:7b
+TRANSCRIPTION_PROVIDER=whisper-local
+```
+
+> 💡 **Quer usar IA sem custos?** Veja o [**Guia Completo de IA Gratuita**](docs/FREE-AI-SETUP.md)
 
 ### Frontend
 
