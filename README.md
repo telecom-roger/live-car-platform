@@ -110,6 +110,7 @@ Acesse: http://localhost:5173
 ## 📚 Documentação
 
 - [🆓 **Guia: Usar IA sem Custo e Ilimitado**](docs/FREE-AI-SETUP.md) ⭐ **NOVO**
+- [❓ **FAQ - IA Gratuita**](docs/FAQ-AI-GRATUITA.md) 🆕
 - [📊 **Comparação de Provedores de IA**](docs/AI-PROVIDERS-COMPARISON.md) 🆕
 - [💡 **Exemplos de Uso de IA**](docs/AI-USAGE-EXAMPLES.md) 🆕
 - [📦 Instalação Completa](docs/INSTALLATION.md)
